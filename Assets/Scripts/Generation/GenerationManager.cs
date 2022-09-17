@@ -8,7 +8,7 @@ public class GenerationManager : MonoBehaviour {
 
     void Start() {
         Layout layout = new Layout(10);
-        Debug.Log(layout.getRooms().Count);
+        Debug.Log(layout);
     }
 
     void Update() {

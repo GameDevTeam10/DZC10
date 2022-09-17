@@ -20,8 +20,13 @@ public class Room
         this.YCord = YCord;
     }
 
+    public int getX() {
+        return this.XCord;
+    }
 
-
+    public int getY() {
+        return this.YCord;
+    }
 
 
 }

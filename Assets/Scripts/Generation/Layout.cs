@@ -9,13 +9,13 @@ public class Layout {
 
     // Layout generator: 
     public Layout(int numOfRooms) {
-        Debug.Log(2);
         List<Room> generatedRooms = new List<Room>();
         Room firstRoom = new Room(this, 0, 0);
+        generatedRooms.Add(firstRoom);
         List<intVector2> addedCoords = new List<intVector2>();
         intVector2 zeroPoint = new intVector2(0,0);
         addedCoords.Add(zeroPoint);
-        
+
         for (int i = 1; i < numOfRooms; i++) {
             // We map the following numbers: 
             // 0: move north
@@ -32,7 +32,16 @@ public class Layout {
         return rooms;
     }
 
-   
+    //This is needed for debuging only!
+    public override string ToString(){
+        string string_rooms = "Rooms:";
+        foreach (Room room in this.rooms) {
+            string_rooms += "(" + room.getX() + "," + room.getY() +"),";
+        }
+        string_rooms = string_rooms.Remove(string_rooms.Length - 1);
+        return "(" + string_rooms + ")";
+    }
+
 }
 
 struct intVector2 {
