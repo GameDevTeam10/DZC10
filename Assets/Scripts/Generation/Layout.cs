@@ -9,6 +9,7 @@ public class Layout {
 
     // Layout generator: 
     public Layout(int numOfRooms) {
+
         List<Room> generatedRooms = new List<Room>();
         Room firstRoom = new Room(this, 0, 0);
         generatedRooms.Add(firstRoom);
@@ -16,14 +17,19 @@ public class Layout {
         intVector2 zeroPoint = new intVector2(0,0);
         addedCoords.Add(zeroPoint);
 
-        for (int i = 1; i < numOfRooms; i++) {
-            // We map the following numbers: 
-            // 0: move north
-            // 1: move east
-            // 2: move south
-            // 3: move west
+        List<intVector2> availableCoords = new List<intVector2>();
+        availableCoords.Add(new intVector2(1, 0));
+        availableCoords.Add(new intVector2(-1, 0));
+        availableCoords.Add(new intVector2(0, 1));
+        availableCoords.Add(new intVector2(0, -1));
 
-            int nextStep = Random.Range(0,4);
+        while (generatedRooms.Count < numOfRooms) {
+            // Pick (randomly) an available coordinate: 
+            intVector2 newLocation = availableCoords[Random.Range(0, availableCoords.Count)];
+            updateAvailableSpots(addedCoords, availableCoords, newLocation);
+
+            Room newRoom = new Room(this, newLocation.getX(), newLocation.getY());
+            generatedRooms.Add(newRoom);
         }
         this.rooms = generatedRooms;
     }
@@ -42,21 +48,33 @@ public class Layout {
         return "(" + string_rooms + ")";
     }
 
-}
 
-struct intVector2 {
-    private int x;
-    private int y;
+    // This function needs to:
+    //  Add currentPick to addedCoords
+    //  Remove currentPick from availableCoords
+    //  posibly add neighbours to availableCoords
+    private void updateAvailableSpots(List<intVector2> addedCoords, List<intVector2> availableCoords, intVector2 currentPick){
+        addedCoords.Add(currentPick);
+        availableCoords.Remove(currentPick);
+        intVector2 northNeighbour = currentPick.moveNorth();
+        intVector2 eastNeighbour = currentPick.moveEast();
+        intVector2 southNeighbour = currentPick.moveSouth();
+        intVector2 westNeighbour = currentPick.moveWest();
 
-    public intVector2(int x, int y) {
-        this.x = x;
-        this.y = y;
+        if (!(availableCoords.Contains(northNeighbour) || addedCoords.Contains(northNeighbour))) {
+            availableCoords.Add(northNeighbour);
+        }
+        if (!(availableCoords.Contains(eastNeighbour) || addedCoords.Contains(eastNeighbour))){
+            availableCoords.Add(eastNeighbour);
+        }
+        if (!(availableCoords.Contains(southNeighbour) || addedCoords.Contains(southNeighbour))){
+            availableCoords.Add(southNeighbour);
+        }
+        if (!(availableCoords.Contains(westNeighbour) || addedCoords.Contains(westNeighbour))){
+            availableCoords.Add(westNeighbour);
+        }
+
     }
 
-    public void setPosition(int newX, int newY) {
-        this.x = newX;
-        this.y = newY;
-    }
 }
-
 

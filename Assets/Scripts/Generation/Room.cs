@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Room
-{
+public class Room {
 
     // A room represents 1 block in our layout. A room is 1 scene. 
     // When the player enters a room, unity will load in a new scene and place the player accordingly.  
