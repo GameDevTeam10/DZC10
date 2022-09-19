@@ -8,14 +8,14 @@ public class Layout {
     private List<Room> rooms; 
 
     // Layout generator: 
-    public Layout(int numOfRooms)
-    {
+    public Layout(int numOfRooms) {
+        Debug.Log(2);
         List<Room> generatedRooms = new List<Room>();
         Room firstRoom = new Room(this, 0, 0);
-        List<(int, int)> addedCoords = new List<(int, int)>();
-        //private (int,int) tuppledZeroZeroCoord = (0,0)
-        //addedCoords.add(tuppledZeroZeroCoord);
-
+        List<intVector2> addedCoords = new List<intVector2>();
+        intVector2 zeroPoint = new intVector2(0,0);
+        addedCoords.Add(zeroPoint);
+        
         for (int i = 1; i < numOfRooms; i++) {
             // We map the following numbers: 
             // 0: move north
@@ -25,11 +25,29 @@ public class Layout {
 
             int nextStep = Random.Range(0,4);
         }
-
         this.rooms = generatedRooms;
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
    
+}
+
+struct intVector2 {
+    private int x;
+    private int y;
+
+    public intVector2(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setPosition(int newX, int newY) {
+        this.x = newX;
+        this.y = newY;
+    }
 }
 
 
