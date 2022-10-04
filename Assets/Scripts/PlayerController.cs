@@ -15,31 +15,24 @@ public class PlayerController : MonoBehaviour
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
     }
 
-
-    private void fixedUpdate()
-    {
-        if(movementInput != Vector2.zero)
-        {
+    private void FixedUpdate() {
+        if(movementInput != Vector2.zero) {
             int count = rb.Cast(
                 movementInput,
                 movementFilter,
                 castCollisions,
                 moveSpeed * Time.fixedDeltaTime + collisionOffset);
-            if(count == 0)
-            {
+            if(count == 0) {
                 rb.MovePosition(rb.position + movementInput * moveSpeed * Time.fixedDeltaTime);
             }
         }
     }
 
-    void OnMove(InputValue movementValue)
-    {
+    void OnMove(InputValue movementValue) {
         movementInput = movementValue.Get<Vector2>();
-
     }
 }
