@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e7666dd382e554542bbc7e1cfc011a15
+=======
+guid: a21066e2c9fad6643b7e298d37d44156
+>>>>>>> b40bc9d (Created teleporter script)
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

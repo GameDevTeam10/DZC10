@@ -9,10 +9,17 @@ EditorUserSettings:
       value: 5a5757560101590a5d0c0e24427b5d44434e4c7a7b7a23677f2b4565b7b5353a
       flags: 0
     RecentlyUsedSceneGuid-1:
+<<<<<<< HEAD
       value: 535051575404510a080f0d2044200d44414f4c29792c2532297b1863b3e33660
       flags: 0
     RecentlyUsedSceneGuid-2:
       value: 5b50075500545c5a090c0920497308444615407b782d2069782d1e6ae1b9363c
+=======
+      value: 5b50075500545c5a090c0920497308444615407b782d2069782d1e6ae1b9363c
+      flags: 0
+    RecentlyUsedSceneGuid-2:
+      value: 535051575404510a080f0d2044200d44414f4c29792c2532297b1863b3e33660
+>>>>>>> b40bc9d (Created teleporter script)
       flags: 0
     RecentlyUsedSceneGuid-3:
       value: 0702555050070a0e5d565c2342225b44174e487e297d73667b2b4f30b1b5673b
