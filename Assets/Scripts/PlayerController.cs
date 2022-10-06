@@ -96,6 +96,5 @@ public class PlayerController : MonoBehaviour {
 
         //Update current state
         currentState = newState;
-
     }
 }
