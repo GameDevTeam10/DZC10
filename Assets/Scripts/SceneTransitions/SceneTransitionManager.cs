@@ -11,13 +11,10 @@ using UnityEngine;
 public class SceneTransitionManager : MonoBehaviour {
 
 
-    [SerializeField] [Range(1, 30)] private int numberOfRooms = 10;
-
     private Layout layout;
 
     void Awake() {
         DontDestroyOnLoad(this.gameObject);
-        layout = new Layout(numberOfRooms);
     }
 
     void Update() {
@@ -25,6 +22,23 @@ public class SceneTransitionManager : MonoBehaviour {
     }
 
     public Room getFirstRoom() {
+        if (layout == null) {
+            Debug.LogError("Layout referenced before assignement! Hoe durf je, schavuit!");
+        }
         return layout.getStartRoom();
     }
+
+    public void initialiseLayout(int numRooms) {
+        if (this.layout == null) {
+            this.layout = new Layout(numRooms);
+        }
+    }
+
+    public void overwriteLayout(int numRooms) {
+        if (this.layout != null) {
+            this.layout = new Layout(numRooms);
+        }
+    }
+        
+
 }
