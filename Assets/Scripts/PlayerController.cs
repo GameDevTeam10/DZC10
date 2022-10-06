@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     public float moveSpeed = 1f;
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
@@ -32,47 +31,40 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
+    void Update() {
         //Input
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
     }
 
     private void FixedUpdate() {
-        if (movementInput != Vector2.zero)
-        {
-            if (inputHorizontal > 0)
-            {
+        if (movementInput != Vector2.zero) {
+            if (inputHorizontal > 0) {
                 ChangeAnimationState(PLAYER_WALK_RIGHT);
             }
-            else if (inputHorizontal < 0)
-            {
+            else if (inputHorizontal < 0) {
                 ChangeAnimationState(PLAYER_WALK_LEFT);
             }
-            else if (inputVertical > 0)
-            {
+            else if (inputVertical > 0) {
                 ChangeAnimationState(PLAYER_WALK_UP);
             }
-            else if (inputVertical < 0)
-            {
+            else if (inputVertical < 0) {
                 ChangeAnimationState(PLAYER_WALK_DOWN);
             }
 
-            
-
             bool success = TryMove(movementInput);
 
-            if (!success)
-            {
+            if (!success) {
                 success = TryMove(new Vector2(movementInput.x, 0));
             }
 
-            if (!success)
-            {
+            if (!success) {
                 success = TryMove(new Vector2(0, movementInput.y));
             }
             
+        }
+        else {
+            ChangeAnimationState(PLAYER_IDLE);
         }
     }
 
@@ -82,13 +74,11 @@ public class PlayerController : MonoBehaviour
                  movementFilter,
                  castCollisions,
                  moveSpeed * Time.fixedDeltaTime + collisionOffset);
-            if (count == 0)
-            {
+            if (count == 0) {
                 rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
                 return true;
             }
-            else
-            {
+            else {
                 return false;
             }
        
@@ -97,8 +87,7 @@ public class PlayerController : MonoBehaviour
         movementInput = movementValue.Get<Vector2>();
     }
 
-    void ChangeAnimationState(string newState)
-    {
+    void ChangeAnimationState(string newState) {
         //Stop animation from interupting itself
         if (currentState == newState) return;
 
