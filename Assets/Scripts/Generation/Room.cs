@@ -87,9 +87,6 @@ public class Room {
 
     // These 2 functions are needed for comparison in list! 
     public static bool operator ==(Room room1, Room room2) {
-        if (ReferenceEquals(room1, null) || ReferenceEquals(room2,null)) {
-            return false;
-        }
         return room1.layout == room2.layout && room1.XCord == room2.XCord && room1.YCord == room2.YCord;
     }
 

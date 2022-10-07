@@ -24,7 +24,7 @@ public class RoomDoor : PortalManager {
         base.Start();
         Room currentRoom = stm.getCurrentRoom();
         Debug.Log("RESTARTING!");
-        canBeUsed = getConnectedRoom(stm.getCurrentRoom()) != null;
+        canBeUsed = !(getConnectedRoom(stm.getCurrentRoom()) is null);
     }
     override public void onPlayerHit() {
         if (canBeUsed) {
