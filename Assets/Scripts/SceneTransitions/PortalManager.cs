@@ -7,9 +7,10 @@ public class PortalManager : MonoBehaviour {
     [SerializeField] [Range(1, 30)] private int numberOfRooms = 10;
     [SerializeField] [Range(1, 10)] private float radius = 1;
 
-    private SceneTransitionManager stm;
+    [HideInInspector] //STM should be a singleton (not by design, but usage)
+    public SceneTransitionManager stm;
 
-    void Start() {
+    public void Start() {
         stm = (SceneTransitionManager) Object.FindObjectOfType(typeof(SceneTransitionManager));
 
         if (stm == null)

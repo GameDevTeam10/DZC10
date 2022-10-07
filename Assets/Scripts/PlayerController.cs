@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(PlayerData))]
 public class PlayerController : MonoBehaviour {
     public float moveSpeed = 1f;
     public float collisionOffset = 0.05f;
@@ -25,7 +26,6 @@ public class PlayerController : MonoBehaviour {
     const string PLAYER_WALK_DOWN = "Player_Walk_Down";
     const string PLAYER_WALK_UP = "Player_Walk_Up";
 
-    // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();

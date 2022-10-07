@@ -24,6 +24,10 @@ public class SceneTransitionManager : MonoBehaviour {
     private Room currentRoom;
 
     void Awake() {
+        // only 1 STM should only ever exist!
+        if (FindObjectsOfType<SceneTransitionManager>().Length > 1) {
+            Destroy(this);
+        }
         DontDestroyOnLoad(this.gameObject);
         player = GameObject.FindWithTag("Player");
     }
@@ -43,6 +47,7 @@ public class SceneTransitionManager : MonoBehaviour {
         if (this.layout == null) {
             this.layout = new Layout(numRooms);
             currentRoom = this.layout.getStartRoom();
+            Debug.Log(this.layout);
         }
     }
 
@@ -61,14 +66,20 @@ public class SceneTransitionManager : MonoBehaviour {
         return HUB_ID;
     }
         
-    // Updates all required info and moves to the next scene
+    // Updates all required info and moves to the next scene, except for Room!
     public void goToScene(int scene) {
         currentSceneId = scene;
         SceneManager.LoadScene(scene);
         updatePlayerPosition();
     }
 
+    public void goToNextRoom(Room room){
+        this.currentRoom = room;
+        this.goToScene(room.getSceneID());
+    }
+
     private void updatePlayerPosition() {
+        this.player.transform.position = new Vector3(0, 0, 0);
         Debug.Log("Updating of player position must still be implemented");
     }
 
