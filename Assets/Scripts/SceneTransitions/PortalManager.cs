@@ -5,7 +5,7 @@ using UnityEngine;
 public class PortalManager : MonoBehaviour {
 
     [SerializeField] [Range(1, 30)] private int numberOfRooms = 10;
-    [SerializeField] [Range(1, 10)] private float radius = 1;
+    [SerializeField] [Range(0.1f, 10)] private float radius = .3f;
 
     [HideInInspector] //STM should be a singleton (not by design, but usage)
     public SceneTransitionManager stm;

@@ -204,7 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRooms: 10
-  radius: 1
+  radius: 0.46
+  stm: {fileID: 0}
   doorLocation: 2
 --- !u!212 &193505831
 SpriteRenderer:
@@ -304,7 +305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRooms: 10
-  radius: 1
+  radius: 0.36
+  stm: {fileID: 0}
   doorLocation: 1
 --- !u!212 &399136763
 SpriteRenderer:
@@ -2456,7 +2458,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRooms: 10
-  radius: 1
+  radius: 0.36
+  stm: {fileID: 0}
   doorLocation: 0
 --- !u!212 &817789099
 SpriteRenderer:
@@ -3756,7 +3759,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRooms: 10
-  radius: 1
+  radius: 0.41
+  stm: {fileID: 0}
   doorLocation: 3
 --- !u!212 &1998751060
 SpriteRenderer:

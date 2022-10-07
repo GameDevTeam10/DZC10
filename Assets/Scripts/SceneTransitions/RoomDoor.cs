@@ -23,8 +23,14 @@ public class RoomDoor : PortalManager {
     private void Start(){
         base.Start();
         Room currentRoom = stm.getCurrentRoom();
-        Debug.Log("RESTARTING!");
         canBeUsed = !(getConnectedRoom(stm.getCurrentRoom()) is null);
+        
+        //TEMP WILL BE TAKEN OUT ONCE WE ADD GRAPHICS!!!
+        if (!canBeUsed) {
+            SpriteRenderer renderer = this.gameObject.GetComponent<SpriteRenderer>();
+            renderer.color = Color.black;
+        }
+        //END OF TEMP
     }
     override public void onPlayerHit() {
         if (canBeUsed) {
@@ -32,7 +38,6 @@ public class RoomDoor : PortalManager {
             Room currentRoom = stm.getCurrentRoom();
             Room nextRoom = getConnectedRoom(currentRoom);
             //Move to new scene
-            Debug.Log("Moving to scene of room: " + nextRoom);
             stm.goToNextRoom(nextRoom);
         }
         else {
