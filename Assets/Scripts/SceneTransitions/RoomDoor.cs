@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomDoor : PortalManager {
 
-    enum DoorLocation { north, east, south, west }
+    public enum DoorLocation { north, east, south, west }
     /* 
      * Could the issue of moving the player to different doors have been solved more elegantly?
      * Yes, but who has the time, simply hardcoding a simple dict like this works wonders!
@@ -38,7 +38,7 @@ public class RoomDoor : PortalManager {
             Room currentRoom = stm.getCurrentRoom();
             Room nextRoom = getConnectedRoom(currentRoom);
             //Move to new scene
-            stm.goToNextRoom(nextRoom);
+            stm.goToNextRoom(nextRoom, doorTransitions[doorLocation]);
         }
         else {
             Debug.Log("Neighbour does not exist!");
@@ -62,6 +62,10 @@ public class RoomDoor : PortalManager {
                 break;
         }
         return neighbour;
+    }
+
+    public DoorLocation getRoomLocation() {
+        return this.doorLocation;
     }
 
 }

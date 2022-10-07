@@ -70,17 +70,34 @@ public class SceneTransitionManager : MonoBehaviour {
     public void goToScene(int scene) {
         currentSceneId = scene;
         SceneManager.LoadScene(scene);
-        updatePlayerPosition();
     }
 
-    public void goToNextRoom(Room room){
+    public void goToNextRoom(Room room, RoomDoor.DoorLocation newLoc){
         this.currentRoom = room;
         this.goToScene(room.getSceneID());
+        updatePlayerPosition(newLoc);
     }
 
-    private void updatePlayerPosition() {
-        this.player.transform.position = new Vector3(0, 0, 0);
-        Debug.Log("Updating of player position must still be implemented");
+    // this function should put the player in the correct position and trigger the 'spawnedPlayer' boolean of that door
+    private void updatePlayerPosition(RoomDoor.DoorLocation location) {
+        
+        RoomDoor[] doors = (RoomDoor[])FindObjectsOfType(typeof(RoomDoor));
+
+        //Find correct door
+        RoomDoor correctDoor = null;
+        foreach (RoomDoor door in doors) {
+            if (door.getRoomLocation() == location) {
+                correctDoor = door;
+            }
+        }
+
+        if (correctDoor is null) {
+            Debug.LogError("New room does NOT have a correct corresponding door");
+        }
+
+        this.player.transform.position = correctDoor.transform.position;
+        correctDoor.tempDeactivePortal();
+        Debug.Log("DISABLING PORTAL!" + correctDoor.gameObject.name);
     }
 
     public Room getCurrentRoom() {

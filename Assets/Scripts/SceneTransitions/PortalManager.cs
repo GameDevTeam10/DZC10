@@ -9,6 +9,8 @@ public class PortalManager : MonoBehaviour {
 
     [HideInInspector] //STM should be a singleton (not by design, but usage)
     public SceneTransitionManager stm;
+    [HideInInspector]
+    private bool portalIsActive = false; //will be set correctly without interference of people, DO NOT TOUCH
 
     public void Start() {
         stm = (SceneTransitionManager) Object.FindObjectOfType(typeof(SceneTransitionManager));
@@ -19,17 +21,38 @@ public class PortalManager : MonoBehaviour {
         }
     }
 
-    private void FixedUpdate() {
+   
+    bool playerHasBeenSeen = true;
+    private void FixedUpdate(){
         // Get all objects that are close enough
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius);
 
         // Check if an object has the player tag
-        foreach(Collider2D hit in hits){
+        playerHasBeenSeen = false;
+        foreach (Collider2D hit in hits) {
             if (hit.gameObject.tag.Equals("Player")) {
-                onPlayerHit();
+                playerHasBeenSeen = true;
+                if (portalIsActive) {
+                    onPlayerHit();
+                }
             }
         }
 
+        if (!playerHasBeenSeen && !portalIsActive) {
+            playerHasBeenSeen = false;
+            portalIsActive = true;
+            Debug.Log("ENABLING PORTAL:" + this.gameObject.name);
+        }
+    }
+
+    // This method may be overwritten to move to different positions;
+    virtual public void onPlayerHit() {
+        this.stm.initialiseLayout(this.numberOfRooms);
+        this.stm.goToScene(stm.getFirstRoom().getSceneID());
+    }
+
+    public void tempDeactivePortal() {
+        this.portalIsActive = false;
     }
 
     // Editor info:
@@ -39,9 +62,4 @@ public class PortalManager : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    // This method may be overwritten to move to different positions;
-    virtual public void onPlayerHit(){
-        this.stm.initialiseLayout(this.numberOfRooms);
-        this.stm.goToScene(stm.getFirstRoom().getSceneID());
-    }
 }
