@@ -14,16 +14,21 @@ public class Room {
     private int XCord;
     private int YCord;
 
+    // A room also has a scene ID, this will simply be an integer
+    //NOTE! SCENEID is not used to check equality! 
+    private int sceneID;
+
     // The rooms also have neighbours. These will be set by the layout constructor
     private Room northNeighbour;
     private Room eastNeighbour;
     private Room southNeighbour;
     private Room westNeighbour;
 
-    public Room(Layout layout, int XCord, int YCord) {
+    public Room(Layout layout, int XCord, int YCord, int sceneID) {
         this.layout = layout;
         this.XCord = XCord;
         this.YCord = YCord;
+        this.sceneID = sceneID;
 
         //initialise neighbours as null
         this.northNeighbour = null;
@@ -86,7 +91,8 @@ public class Room {
     }
 
     public static bool operator !=(Room room1, Room room2) {
-        return room1.layout != room2.layout || room1.XCord != room2.XCord || room1.YCord != room2.YCord;
+        return !(room1 == room2);
+        //return room1.layout != room2.layout || room1.XCord != room2.XCord || room1.YCord != room2.YCord;
     }
 
     // For debug purposes:
@@ -102,5 +108,28 @@ public class Room {
 
     public string cordString(){
         return "Cord: (" + this.getX() + "," + this.getY() + ")";
+    }
+
+    public int getSceneID(){
+        return this.sceneID;
+    }
+
+    public Room getNorthNeighbour() {
+        return this.northNeighbour;
+    }
+
+    public Room getEastNeighbour()
+    {
+        return this.eastNeighbour;
+    }
+
+    public Room getWestNeighbour()
+    {
+        return this.westNeighbour;
+    }
+
+    public Room getSouthNeighbour()
+    {
+        return this.southNeighbour;
     }
 }

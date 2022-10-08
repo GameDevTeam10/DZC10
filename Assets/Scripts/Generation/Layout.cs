@@ -13,7 +13,7 @@ public class Layout {
     public Layout(int numOfRooms) {
 
         List<Room> generatedRooms = new List<Room>();
-        Room firstRoom = new Room(this, 0, 0);
+        Room firstRoom = new Room(this, 0, 0, SceneTransitionManager.getRandomRoomScene());
         this.startRoom = firstRoom;
         generatedRooms.Add(firstRoom);
         List<intVector2> addedCoords = new List<intVector2>();
@@ -31,7 +31,7 @@ public class Layout {
             intVector2 newLocation = availableCoords[Random.Range(0, availableCoords.Count)];
             updateAvailableSpots(addedCoords, availableCoords, newLocation);
 
-            Room newRoom = new Room(this, newLocation.getX(), newLocation.getY());
+            Room newRoom = new Room(this, newLocation.getX(), newLocation.getY(), SceneTransitionManager.getRandomRoomScene());
             generatedRooms.Add(newRoom);
         }
         this.rooms = generatedRooms;
@@ -92,10 +92,10 @@ public class Layout {
             int xCord = room.getX();
             int yCord = room.getY();
             // NOTE: these rooms are only there to check if the room exists in the rooms parameter. These are not the actual room objects in the rooms of the current layout!
-            Room northRoom = new Room(layout, xCord, yCord + 1);
-            Room eastRoom = new Room(layout, xCord + 1, yCord);
-            Room southRoom = new Room(layout, xCord, yCord - 1);
-            Room westRoom = new Room(layout, xCord - 1, yCord);
+            Room northRoom = new Room(layout, xCord, yCord + 1, 0);
+            Room eastRoom = new Room(layout, xCord + 1, yCord, 0);
+            Room southRoom = new Room(layout, xCord, yCord - 1, 0);
+            Room westRoom = new Room(layout, xCord - 1, yCord, 0);
 
             Room[] neighbourRooms = { northRoom, eastRoom, southRoom, westRoom };
             foreach(Room neighbour in neighbourRooms) {
