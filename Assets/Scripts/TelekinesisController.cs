@@ -36,7 +36,7 @@ public class TelekinesisController : MonoBehaviour {
             }
         }
         //SHOOT
-        else if (Input.GetMouseButtonUp(0)) {
+        else if (Input.GetMouseButtonUp(0) && telObject is not null) {
             Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 newPos = new Vector2(mousePos3D.x, mousePos3D.y);
             Vector2 direction = (newPos - lastPos);
