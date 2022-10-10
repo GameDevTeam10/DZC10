@@ -97,7 +97,6 @@ public class SceneTransitionManager : MonoBehaviour {
 
         this.player.transform.position = correctDoor.transform.position;
         correctDoor.tempDeactivePortal();
-        Debug.Log("DISABLING PORTAL!" + correctDoor.gameObject.name);
     }
 
     public Room getCurrentRoom() {

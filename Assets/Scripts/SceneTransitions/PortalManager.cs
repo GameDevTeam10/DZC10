@@ -41,7 +41,6 @@ public class PortalManager : MonoBehaviour {
         if (!playerHasBeenSeen && !portalIsActive) {
             playerHasBeenSeen = false;
             portalIsActive = true;
-            Debug.Log("ENABLING PORTAL:" + this.gameObject.name);
         }
     }
 

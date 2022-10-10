@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(TelekinesisController))]
 [RequireComponent(typeof(PlayerData))]
 public class PlayerController : MonoBehaviour {
     public float moveSpeed = 1f;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate() {
         if (movementInput != Vector2.zero) {
+            animator.enabled = true;
             if (inputHorizontal > 0) {
                 ChangeAnimationState(PLAYER_WALK_RIGHT);
             }
@@ -67,7 +69,8 @@ public class PlayerController : MonoBehaviour {
             
         }
         else {
-            ChangeAnimationState(PLAYER_IDLE);
+            animator.enabled = false;
+            //ChangeAnimationState(PLAYER_IDLE);
         }
     }
 
