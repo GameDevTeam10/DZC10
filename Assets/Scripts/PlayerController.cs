@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        // Set the layers that a player can collide with:
+        movementFilter.SetLayerMask(LayerMask.GetMask("Obstacles"));
     }
 
     void Update() {
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour {
                  movementFilter,
                  castCollisions,
                  moveSpeed * Time.fixedDeltaTime + collisionOffset);
+
             if (count == 0) {
                 rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
                 return true;

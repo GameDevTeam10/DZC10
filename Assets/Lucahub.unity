@@ -19373,7 +19373,7 @@ GameObject:
   - component: {fileID: 1022873773}
   - component: {fileID: 1022873772}
   - component: {fileID: 1022873774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Walls/collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
