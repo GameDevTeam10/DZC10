@@ -65,7 +65,12 @@ public class TelekinesisController : MonoBehaviour {
         }
 
         //Update movement
-        if(telObject is not null) {
+        if (telObject is not null) {
+            // Make sure it is not moving from the physics engine!
+            Rigidbody2D rigidBody2D = telObject.GetComponent<Rigidbody2D>();
+            rigidBody2D.velocity = Vector2.zero;
+            rigidBody2D.angularVelocity = 0f;
+
             Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos3D.x, mousePos3D.y);
             telObject.transform.position = new Vector3(mousePos2D.x, mousePos2D.y, telObject.transform.position.z);
