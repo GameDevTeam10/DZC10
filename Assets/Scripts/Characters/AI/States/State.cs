@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 // The State abstract class defines a state, for polymorphism usages in the StateMachine (which is a concrete implementation)
+[System.Serializable]
 public abstract class State {
     // A state should know which enemy (statemachine) it is a part of, for update purposes
     public Enemy enemy; 
