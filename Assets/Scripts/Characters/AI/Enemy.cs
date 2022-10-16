@@ -74,12 +74,12 @@ public class Enemy : Character {
 
     public void attack() {
         if (detector.PlayerInAttackRange) {
-            StartCoroutine(Attacking);
+            StartCoroutine(Attacking());
         }
     }
 
     IEnumerator Attacking() {
-        player. -= damage;
+        //player.health -= damage;
         yield return new WaitForSeconds(cooldown);
     }
 }
