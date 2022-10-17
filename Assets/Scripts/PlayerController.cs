@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate() {
         if (movementInput != Vector2.zero) {
-            animator.enabled = true;
             if (inputHorizontal > 0) {
                 ChangeAnimationState(PLAYER_WALK_RIGHT);
             }
@@ -69,8 +68,7 @@ public class PlayerController : MonoBehaviour {
             
         }
         else {
-            animator.enabled = false;
-            //ChangeAnimationState(PLAYER_IDLE);
+            ChangeAnimationState(PLAYER_IDLE);
         }
     }
 
