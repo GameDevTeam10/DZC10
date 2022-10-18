@@ -11,6 +11,8 @@ public class PortalManager : MonoBehaviour {
     public SceneTransitionManager stm;
     [HideInInspector]
     private bool portalIsActive = false; //will be set correctly without interference of people, DO NOT TOUCH
+    [HideInInspector]
+    private GameObject playerObject = null;
 
     public void Start() {
         stm = (SceneTransitionManager) Object.FindObjectOfType(typeof(SceneTransitionManager));
@@ -23,7 +25,7 @@ public class PortalManager : MonoBehaviour {
 
    
     bool playerHasBeenSeen = true;
-    private void FixedUpdate(){
+    private void FixedUpdate() {
         // Get all objects that are close enough
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius);
 
@@ -33,6 +35,7 @@ public class PortalManager : MonoBehaviour {
             if (hit.gameObject.tag.Equals("Player")) {
                 playerHasBeenSeen = true;
                 if (portalIsActive) {
+                    playerObject = hit.gameObject;
                     onPlayerHit();
                 }
             }
@@ -52,6 +55,13 @@ public class PortalManager : MonoBehaviour {
 
     public void tempDeactivePortal() {
         this.portalIsActive = false;
+    }
+
+    public GameObject getPlayer() {
+        if (playerObject is null) {
+            Debug.LogError("Player has not been found yet, you can not call this method");
+        }
+        return playerObject;
     }
 
     // Editor info:
