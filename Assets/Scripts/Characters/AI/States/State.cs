@@ -3,17 +3,20 @@ using System.Collections.Generic;
 
 // The State abstract class defines a state, for polymorphism usages in the StateMachine (which is a concrete implementation)
 [System.Serializable]
-public abstract class State {
+public abstract class State
+{
     // A state should know which enemy (statemachine) it is a part of, for update purposes
-    public Enemy enemy; 
+    public Enemy enemy;
 
     // Constructor: 
-    public State(Enemy enemy){
+    public State(Enemy enemy)
+    {
         this.enemy = enemy;
     }
 
     // function for the state to update it self! 
-    public void goToNextState(State nextState) {
+    public void goToNextState(State nextState)
+    {
         this.enemy.updateStateMachine(nextState);
     }
 

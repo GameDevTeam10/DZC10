@@ -2180,22 +2180,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5369738762833468077, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
   m_PrefabInstance: {fileID: 5369738762126181956}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &773129410
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773129409}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &773129421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3287,7 +3271,6 @@ GameObject:
   - component: {fileID: 1152578365}
   - component: {fileID: 1152578366}
   - component: {fileID: 1152578367}
-  - component: {fileID: 1152578368}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -3308,12 +3291,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 0
+  damage: 1
+  maxHealth: 11
   enemyName: Swordsman
   sightDistance: 4
   attackRange: 1
-  cooldown: 0
-  damage: 0
+  cooldown: 3
+  isAttacking: 0
   player: {fileID: 0}
   detector: {fileID: 0}
   aiDest: {fileID: 0}
@@ -3413,10 +3397,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 1.24
+  radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 4
+  maxSpeed: 2
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -3437,7 +3421,7 @@ MonoBehaviour:
   rotationSpeed: 32400
   slowdownDistance: 2.28
   pickNextWaypointDist: 2
-  endReachedDistance: 1.43
+  endReachedDistance: 0.3
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -3498,12 +3482,12 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &1152578367
 MonoBehaviour:
@@ -3528,31 +3512,9 @@ MonoBehaviour:
     m_Bits: 0
   AttackRange: 1
   offsetAttack: {x: 0, y: 0}
-  gizmoNotActivatedColor: {r: 0, g: 1, b: 0, a: 1}
+  gizmoNotActivatedColor: {r: 0, g: 1, b: 0.009654045, a: 1}
   gizmoActivatedColor: {r: 1, g: 0, b: 0, a: 1}
   showGizmos: 1
---- !u!114 &1152578368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1152578358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65c4c2b0d00a544696d8386e8db11a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 10
-  enemyName: kutjes
-  sightDistance: 4
-  attackRange: 1
-  cooldown: 0
-  damage: 0
-  player: {fileID: 0}
-  detector: {fileID: 0}
-  aiDest: {fileID: 0}
 --- !u!1 &1439925736
 GameObject:
   m_ObjectHideFlags: 0
@@ -4007,7 +3969,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5412479749173094118, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
       propertyPath: m_BodyType
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412479749173094118, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412479749173094118, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412479749173094118, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5769411883590648247, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
       propertyPath: m_IsTrigger
@@ -4018,12 +3992,20 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8408891620412808788, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
+      propertyPath: health
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8408891620412808788, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
       propertyPath: maxHealt
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8408891620412808788, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
       propertyPath: maxHealth
-      value: 10
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8408891620412808788, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}
+      propertyPath: invincebilityTime
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d815e32e2ffb95448b90d80466b949c, type: 3}

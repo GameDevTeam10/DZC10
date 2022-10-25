@@ -5,8 +5,8 @@ using UnityEngine;
 public class Detection : MonoBehaviour
 {
 
-    public bool PlayerDetected {get; private set;}
-    public bool PlayerInAttackRange {get; private set;}
+    public bool PlayerDetected { get; private set; }
+    public bool PlayerInAttackRange { get; private set; }
 
     [Header("OverlapcircleSight")]
     [SerializeField]
@@ -43,74 +43,90 @@ public class Detection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public GameObject Target {
+    public GameObject Target
+    {
         get => target;
-        private set {
+        private set
+        {
             target = value;
-            PlayerDetected  = target != null;
+            PlayerDetected = target != null;
         }
     }
 
-    public GameObject AttackTarget {
+    public GameObject AttackTarget
+    {
         get => attackTarget;
-        private set {
+        private set
+        {
             attackTarget = value;
-            PlayerInAttackRange  = attackTarget != null;
+            PlayerInAttackRange = attackTarget != null;
         }
     }
 
     //Using this we do not detect every frame, like in Update(), but instead check every delay interval
-    IEnumerator DetectionCoroutine() {
+    IEnumerator DetectionCoroutine()
+    {
         yield return new WaitForSeconds(delay);
         Detect();
-        
-        if (PlayerDetected) {
+
+        if (PlayerDetected)
+        {
             attackDetect();
         }
 
         StartCoroutine(DetectionCoroutine());
     }
 
-    public void Detect() {
+    public void Detect()
+    {
         Collider2D collider = Physics2D.OverlapCircle((Vector2)this.transform.position + offset, detectorSize, detectorLayerMask);
         Target = null;
 
-        if (collider is not null) {
-          // if(doRaycast(collider.gameObject)) {
-                Target = collider.gameObject;
-          //  }
+        if (collider is not null)
+        {
+            // if(doRaycast(collider.gameObject)) {
+            Target = collider.gameObject;
+            //  }
         }
     }
-    
-    public void attackDetect() {
+
+    public void attackDetect()
+    {
         Collider2D collider = Physics2D.OverlapCircle((Vector2)this.transform.position + offset, AttackRange, detectorLayerMask);
 
-        if (collider is not null) {
+        if (collider is not null)
+        {
             AttackTarget = collider.gameObject;
-            
-        } else {
+
+        }
+        else
+        {
             AttackTarget = null;
         }
     }
 
-    private bool doRaycast(GameObject target) {
+    private bool doRaycast(GameObject target)
+    {
         Vector3 direction = (this.transform.position - target.transform.position).normalized;
         Vector2 direction2d = new Vector2(direction.x, direction.y);
         RaycastHit2D detectedObjects = Physics2D.Raycast(this.transform.position, direction2d, Vector2.Distance(this.transform.position, target.transform.position), objectLayer);
         return detectedObjects.collider is not null;
     }
 
-    public void OnDrawGizmos(){
-        if (showGizmos && this.transform is not null) {
+    public void OnDrawGizmos()
+    {
+        if (showGizmos && this.transform is not null)
+        {
             Gizmos.color = gizmoNotActivatedColor;
-            
-            if (PlayerDetected) {
+
+            if (PlayerDetected)
+            {
                 Gizmos.color = gizmoActivatedColor;
             }
-            Gizmos.DrawWireSphere((Vector2)this.transform.position + offset, detectorSize);           
+            Gizmos.DrawWireSphere((Vector2)this.transform.position + offset, detectorSize);
         }
     }
 

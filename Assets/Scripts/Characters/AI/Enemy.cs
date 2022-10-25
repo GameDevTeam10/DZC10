@@ -5,26 +5,31 @@ using Pathfinding;
 
 
 // This abstract class defines the stateMachine used by enemies.
-public class Enemy : Character {
+public class Enemy : Character
+{
 
     [SerializeField] private string enemyName;
 
     [SerializeField] private float sightDistance;
     [SerializeField] private float attackRange;
     [SerializeField] private float cooldown;
-    [SerializeField] private float damage;
 
     [SerializeField] private State currentState;
     private State previousState = null;
+
+    public bool isAttacking = false;
 
     public GameObject player;
     public Detection detector;
 
     public AIDestinationSetter aiDest;
 
-    void Start() {
+    void Start()
+    {
         // Update generic character initialisation
         base.Start();
+
+        //this.detector.AttackRange = this.GetComponent<CircleCollider2D>().radius;
 
         // Enemy specific initialisation:
         initialiseEnemy();
@@ -34,7 +39,8 @@ public class Enemy : Character {
         player = GameObject.FindWithTag("Player");
     }
 
-    void Update() {
+    void Update()
+    {
         // Update generic character update
         base.Update();
 
@@ -42,7 +48,8 @@ public class Enemy : Character {
         updateEnemy();
     }
 
-    private void initialiseEnemy() {
+    private void initialiseEnemy()
+    {
         aiDest = this.GetComponent<AIDestinationSetter>();
         // Check if state is set 
         this.currentState = null;
@@ -51,19 +58,22 @@ public class Enemy : Character {
         this.currentState.stateStart();
     }
 
-    private void initialiseDetector() {
+    private void initialiseDetector()
+    {
         detector = this.GetComponent<Detection>();
         detector.AttackRange = this.attackRange;
         detector.detectorSize = this.sightDistance;
     }
 
-    private void updateEnemy() {
+    private void updateEnemy()
+    {
         // update according to the current state
         this.currentState.stateUpdate();
     }
 
     // This function updates the statemachine to its next state. Called by states!
-    public void updateStateMachine(State newState) {
+    public void updateStateMachine(State newState)
+    {
         // End current state
         this.currentState.stateEnd();
         // Set new state
@@ -72,14 +82,35 @@ public class Enemy : Character {
         this.currentState.stateStart();
     }
 
-    public void attack() {
-        if (detector.PlayerInAttackRange) {
+    public void attack()
+    {
+        if (detector.PlayerInAttackRange)
+        {
             StartCoroutine(Attacking());
         }
     }
 
-    IEnumerator Attacking() {
-        //player.health -= damage;
+    IEnumerator Attacking()
+    {
+        isAttacking = true;
+        this.aiDest.target = null;
+        if (!player.GetComponent<PlayerData>().isInvinceble)
+        {
+            Debug.Log("owo");
+            player.GetComponent<PlayerData>().updateHealth(damage);
+            Knockback();
+        }
         yield return new WaitForSeconds(cooldown);
+        this.aiDest.target = player.transform;
+        isAttacking = false;
     }
+
+    public void Knockback()
+    {
+        Vector2 knockback = (player.transform.position - this.transform.position).normalized;
+        Debug.Log("GIVING KNOCKBACK");
+        Debug.Log(knockback);
+        player.GetComponent<Rigidbody2D>().AddForce(knockback * 5, ForceMode2D.Impulse);
+    }
+
 }

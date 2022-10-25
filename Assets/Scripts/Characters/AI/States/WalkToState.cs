@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class WalkToState : State {
+public class WalkToState : State
+{
 
     public WalkToState(Enemy enemy) : base(enemy) { }
 
@@ -14,10 +15,10 @@ public class WalkToState : State {
     }
 
     public override void stateUpdate()
-    {
-        
-        if (this.enemy.detector.PlayerInAttackRange) {
-            this.enemy.updateStateMachine(new AttackState(this.enemy));
+    {   
+        if (this.enemy.detector.PlayerInAttackRange && !this.enemy.isAttacking)
+        {
+            this.enemy.attack();
         }
     }
 

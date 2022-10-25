@@ -4,32 +4,35 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public float health = 1;
-    public float maxHealth;
+    [SerializeField] protected float health;
+    [SerializeField] public float damage;
+    [SerializeField] public float maxHealth = 1;
 
     // Start is called before the first frame update
     public void Start()
     {
-        health = maxHealth;
+        this.health = maxHealth;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        
+
     }
 
-    private void death() {
-        if (health <= 0) {
+    public virtual void updateHealth(float amount)
+    {
+        health -= amount;
+        death();
+    }
+
+    public virtual void death()
+    {
+        if (health <= 0)
+        {
             Debug.Log(health);
             Debug.Log("Going to destroy:" + this.gameObject.name);
             Destroy(this.gameObject);
         }
     }
-
-    public void takeDamage(int amount) {
-        this.health -= amount;
-        death();
-    }
-
 }

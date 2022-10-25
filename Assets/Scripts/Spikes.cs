@@ -10,7 +10,7 @@ public class Spikes : PortalManager {
         GameObject playerObject = this.getPlayer();
         Character player = playerObject.GetComponent<Character>();
 
-        player.takeDamage(damagePerHit);
+        player.updateHealth(damagePerHit);
 
         this.tempDeactivePortal();
     }
