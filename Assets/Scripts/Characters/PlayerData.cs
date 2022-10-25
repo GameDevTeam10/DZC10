@@ -17,6 +17,7 @@ public class PlayerData : Character
 
     void Start()
     {
+        base.Start();
         sceneManager = FindObjectOfType<SceneTransitionManager>();
     }
 

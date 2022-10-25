@@ -20,6 +20,7 @@ public class TelekinesisObject : MonoBehaviour {
             case "Enemy":
                 Character enemyChar = col.collider.gameObject.GetComponent<Character>();
                 enemyChar.updateHealth(10);
+                
                 break;
             default:
                 break;
