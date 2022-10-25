@@ -96,7 +96,7 @@ public class Enemy : Character
         this.aiDest.target = null;
         if (!player.GetComponent<PlayerData>().isInvinceble)
         {
-            Debug.Log("owo");
+
             player.GetComponent<PlayerData>().updateHealth(damage);
             Knockback();
         }
@@ -109,7 +109,6 @@ public class Enemy : Character
     {
         Vector2 knockback = (player.transform.position - this.transform.position).normalized;
         Debug.Log("GIVING KNOCKBACK");
-        Debug.Log(knockback);
         player.GetComponent<Rigidbody2D>().AddForce(knockback * 5, ForceMode2D.Impulse);
     }
 

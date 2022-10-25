@@ -27,8 +27,8 @@ public class RoomDoor : PortalManager {
         
         //TEMP WILL BE TAKEN OUT ONCE WE ADD GRAPHICS!!!
         if (!canBeUsed) {
-            SpriteRenderer renderer = this.gameObject.GetComponent<SpriteRenderer>();
-            renderer.color = Color.black;
+            //SpriteRenderer renderer = this.gameObject.GetComponent<SpriteRenderer>();
+            //renderer.color = Color.black;
         }
         //END OF TEMP
     }

@@ -49,6 +49,7 @@ public class PortalManager : MonoBehaviour {
 
     // This method may be overwritten to move to different positions;
     virtual public void onPlayerHit() {
+        this.playerObject.transform.position = Vector2.zero;
         this.stm.initialiseLayout(this.numberOfRooms);
         this.stm.goToScene(stm.getFirstRoom().getSceneID());
     }
