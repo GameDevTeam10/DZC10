@@ -25,7 +25,7 @@ public class PlayerData : Character
     {
         if (this.health <= 0)
         {
-            // this.gameObject.destroy();
+            Destroy(this.gameObject);
             sceneManager.goToScene(SceneTransitionManager.getHubID());
         }
     }
