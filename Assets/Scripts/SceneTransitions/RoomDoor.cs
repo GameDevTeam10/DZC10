@@ -17,6 +17,8 @@ public class RoomDoor : PortalManager {
     };
 
     [SerializeField] private DoorLocation doorLocation = DoorLocation.north;
+    [SerializeField] Sprite openDoor;
+
     // A door should only be used if it actually has a neighbour.
     [HideInInspector] private bool canBeUsed = false;
 
@@ -25,12 +27,10 @@ public class RoomDoor : PortalManager {
         Room currentRoom = stm.getCurrentRoom();
         canBeUsed = !(getConnectedRoom(stm.getCurrentRoom()) is null);
         
-        //TEMP WILL BE TAKEN OUT ONCE WE ADD GRAPHICS!!!
-        if (!canBeUsed) {
-            //SpriteRenderer renderer = this.gameObject.GetComponent<SpriteRenderer>();
-            //renderer.color = Color.black;
+        if (canBeUsed) {
+            SpriteRenderer renderer = this.gameObject.GetComponent<SpriteRenderer>();
+            renderer.sprite = openDoor;
         }
-        //END OF TEMP
     }
     override public void onPlayerHit() {
         if (canBeUsed) {
